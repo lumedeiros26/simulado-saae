@@ -5,34 +5,31 @@ app.use(express.json());
 app.use(express.static('public'));
 
 const bancoQuestoes = [
-    // --- PORTUGUÊS & REDAÇÃO OFICIAL ---
-    { id: 1, disciplina: "Redação Oficial", enunciado: "Segundo o Manual da Presidência, o fecho adequado para autoridades de mesma hierarquia é:", alternativas: { A: "Respeitosamente", B: "Cordialmente", C: "Atenciosamente", D: "Com estima" }, gabarito: "C", explicacao: "Usa-se 'Atenciosamente' para autoridades de mesma hierarquia ou inferior." },
-    { id: 2, disciplina: "Português", enunciado: "Assinale a alternativa com a grafia CORRETA:", alternativas: { A: "Analizar", B: "Paralizar", C: "Catequizar", D: "Pesquisar" }, gabarito: "D", explicacao: "'Pesquisar' mantém o 's' do radical. Catequizar é com 'z'." },
-    { id: 3, disciplina: "Português", enunciado: "O plural de 'Cidadão' e 'Escrivão' é:", alternativas: { A: "Cidadões e Escrivões", B: "Cidadãos e Escrivães", C: "Cidadãos e Escrivões", D: "Cidadões e Escrivães" }, gabarito: "B", explicacao: "Cidadãos (único plural) e Escrivães (plural mais comum)." },
-    { id: 4, disciplina: "Redação Oficial", enunciado: "O pronome de tratamento para Reitores de Universidades é:", alternativas: { A: "Vossa Excelência", B: "Vossa Magnificência", C: "Vossa Senhoria", D: "Vossa Santidade" }, gabarito: "B", explicacao: "Magnificência é exclusivo para Reitores." },
-    { id: 5, disciplina: "Português", enunciado: "Usa-se a crase obrigatoriamente em:", alternativas: { A: "Vendeu a prazo.", B: "Caminhou a pé.", C: "Chegou à uma hora.", D: "Fui à escola." }, gabarito: "D", explicacao: "Quem vai, vai 'a'. Escola é feminino 'a'. A+A = À." },
+    // --- PORTUGUÊS (Interpretação, Crase e Sintaxe) ---
+    { id: 1, disciplina: "Português", enunciado: "De acordo com as normas de regência e crase, assinale a alternativa correta:", alternativas: { A: "O Agente Administrativo comunicou à todos a decisão.", B: "O servidor dirigiu-se à repartição para trabalhar.", C: "O documento foi entregue à ele ontem.", D: "As informações foram enviadas à uma funcionária externa." }, gabarito: "B", explicacao: "Quem se dirige, se dirige 'a'. 'Repartição' é feminino. A+A = À. Não se usa crase antes de pronomes masculinos ou indefinidos (A, C, D)." },
+    { id: 2, disciplina: "Português", enunciado: "Assinale a alternativa em que há erro de concordância verbal:", alternativas: { A: "Fazem dez meses que o concurso foi anunciado.", B: "Houve muitas dúvidas durante a prova.", C: "Devem existir soluções melhores para o problema.", D: "Trata-se de questões complexas." }, gabarito: "A", explicacao: "O verbo 'fazer' indicando tempo decorrido é impessoal e deve ficar no singular: 'Faz dez meses'." },
 
-    // --- DIREITO ADM & LEGISLAÇÃO ---
-    { id: 6, disciplina: "Direito Adm", enunciado: "O SAAE é uma Autarquia, o que significa que possui:", alternativas: { A: "Subordinação total ao Prefeito", B: "Autonomia administrativa e financeira", C: "Fins lucrativos", D: "Natureza privada" }, gabarito: "B", explicacao: "Autarquias são entes descentralizados com autonomia própria." },
-    { id: 7, disciplina: "Direito Adm", enunciado: "Qual princípio proíbe a promoção pessoal em obras públicas?", alternativas: { A: "Legalidade", B: "Impessoalidade", C: "Eficiência", D: "Publicidade" }, gabarito: "B", explicacao: "A obra é do Estado, não do gestor." },
-    { id: 8, disciplina: "Legislação", enunciado: "A investidura em cargo público ocorre com a:", alternativas: { A: "Nomeação", B: "Posse", C: "Exercício", D: "Prova" }, gabarito: "B", explicacao: "A posse completa a investidura do servidor." },
-    { id: 9, disciplina: "Direito Adm", enunciado: "Atributo do ato adm que permite execução imediata:", alternativas: { A: "Tipicidade", B: "Imperatividade", C: "Autoexecutoriedade", D: "Legitimidade" }, gabarito: "C", explicacao: "Permite agir sem prévia autorização judicial." },
-    { id: 10, disciplina: "Legislação", enunciado: "Estágio probatório dura:", alternativas: { A: "2 anos", B: "3 anos", C: "5 anos", D: "1 ano" }, gabarito: "B", explicacao: "Conforme a CF/88, são 3 anos de efetivo exercício." },
+    // --- RACIOCÍNIO LÓGICO (Conjuntos e Lógica) ---
+    { id: 3, disciplina: "Raciocínio Lógico", enunciado: "Em um conjunto de 50 servidores do SAAE, 30 trabalham no setor de Água e 25 no setor de Esgoto. Sabendo que 10 trabalham em ambos, quantos servidores trabalham APENAS no setor de Água?", alternativas: { A: "20", B: "15", C: "10", D: "5" }, gabarito: "A", explicacao: "Pelo Diagrama de Venn: (Total Água 30) - (Interseção 10) = 20 trabalham apenas na Água." },
+    { id: 4, disciplina: "Raciocínio Lógico", enunciado: "Considerando a sequência lógica: Círculo, Quadrado, Triângulo, Círculo, Quadrado... Qual será o 10º elemento?", alternativas: { A: "Círculo", B: "Quadrado", C: "Triângulo", D: "Pentágono" }, gabarito: "A", explicacao: "A sequência se repete a cada 3 elementos. 10 dividido por 3 sobra 1. O primeiro elemento da sequência é o Círculo." },
 
-    // --- ARQUIVOLOGIA & ATENDIMENTO ---
-    { id: 11, disciplina: "Arquivologia", enunciado: "Arquivos de uso frequente são chamados de:", alternativas: { A: "Correntes", B: "Intermediários", C: "Permanentes", D: "Mortos" }, gabarito: "A", explicacao: "Arquivos correntes são os de consulta diária." },
-    { id: 12, disciplina: "Atendimento", enunciado: "A postura correta diante de um cidadão irritado é:", alternativas: { A: "Ser ríspido", B: "Manter a calma e empatia", C: "Ignorar", D: "Chamar a polícia de imediato" }, gabarito: "B", explicacao: "Urbanidade é dever do servidor." },
-    { id: 13, disciplina: "Arquivologia", enunciado: "Método que organiza por assunto:", alternativas: { A: "Alfabético", B: "Numérico", C: "Ideográfico", D: "Geográfico" }, gabarito: "C", explicacao: "Ideográfico foca na ideia/tema." },
-    { id: 14, disciplina: "Arquivologia", enunciado: "Documentos de valor histórico ficam no arquivo:", alternativas: { A: "Corrente", B: "Intermediário", C: "Permanente", D: "Setorial" }, gabarito: "C", explicacao: "O arquivo permanente nunca é descartado." },
-    { id: 15, disciplina: "Atendimento", enunciado: "O atendimento preferencial é garantido para:", alternativas: { A: "Apenas idosos", B: "Idosos, gestantes e pessoas com deficiência", C: "Quem chegar primeiro", D: "Amigos do servidor" }, gabarito: "B", explicacao: "Lei Federal garante a prioridade nestes casos." },
+    // --- INFORMÁTICA (IA, Backup e Windows 10) ---
+    { id: 5, disciplina: "Informática", enunciado: "Sobre o uso de Inteligência Artificial (IA) em ferramentas de produtividade, assinale a opção correta:", alternativas: { A: "O Copilot do Microsoft 365 só funciona para traduzir textos.", B: "IAs generativas podem auxiliar na automação de tarefas repetitivas e análise de dados.", C: "Assistentes virtuais não podem ser integrados ao Outlook.", D: "O Windows 10 não permite nenhum tipo de automação por voz." }, gabarito: "B", explicacao: "As IAs modernas em suítes de produtividade visam justamente automatizar tarefas e analisar grandes volumes de dados." },
+    { id: 6, disciplina: "Informática", enunciado: "Qual tipo de backup copia apenas os arquivos que foram alterados desde o último backup COMPLETO?", alternativas: { A: "Incremental", B: "Diferencial", C: "Espelhado", D: "Sintético" }, gabarito: "B", explicacao: "O backup Diferencial armazena as alterações em relação ao último Backup Cheio (Full)." },
 
-    // --- INFORMÁTICA & MATEMÁTICA ---
-    { id: 16, disciplina: "Informática", enunciado: "Atalho para fechar programa no Windows:", alternativas: { A: "Alt + F4", B: "Ctrl + Z", C: "Win + L", D: "Ctrl + P" }, gabarito: "A", explicacao: "Alt+F4 fecha a janela ativa." },
-    { id: 17, disciplina: "Matemática", enunciado: "30% de 200 é:", alternativas: { A: "30", B: "50", C: "60", D: "100" }, gabarito: "C", explicacao: "0,3 * 200 = 60." },
-    { id: 18, disciplina: "Informática", enunciado: "Protocolo para envio de e-mails:", alternativas: { A: "HTTP", B: "SMTP", C: "FTP", D: "POP3" }, gabarito: "B", explicacao: "SMTP envia; POP3 e IMAP recebem." },
-    { id: 19, disciplina: "Matemática", enunciado: "Média de 10, 20 e 30:", alternativas: { A: "10", B: "20", C: "30", D: "60" }, gabarito: "B", explicacao: "(10+20+30)/3 = 20." },
-    { id: 20, disciplina: "SAAE", enunciado: "Em Passos, a autarquia responsável pelo saneamento é:", alternativas: { A: "COPASA", B: "SAAE", C: "CEMIG", D: "Prefeitura" }, gabarito: "B", explicacao: "O SAAE é a autarquia local de Passos." }
-    // Adicione mais questões seguindo este padrão até 50.
+    // --- LEGISLAÇÃO (Passos, Licitações e LAI) ---
+    { id: 7, disciplina: "Legislação Municipal", enunciado: "De acordo com o Estatuto dos Servidores de Passos, a forma de provimento que consiste no retorno do servidor estável ao cargo anterior após reprovação em estágio probatório de outro cargo é:", alternativas: { A: "Reversão", B: "Reintegração", C: "Recondução", D: "Aproveitamento" }, gabarito: "C", explicacao: "A Recondução é o retorno ao cargo anterior por inabilitação em estágio probatório de outro cargo." },
+    { id: 8, disciplina: "Licitações (Lei 14.133)", enunciado: "Segundo a Nova Lei de Licitações (14.133/21), a modalidade de licitação obrigatória para a aquisição de bens e serviços comuns é o:", alternativas: { A: "Pregão", B: "Concurso", C: "Leilão", D: "Diálogo Competitivo" }, gabarito: "A", explicacao: "O Pregão é a modalidade para bens e serviços cujos padrões de desempenho podem ser definidos objetivamente." },
+    { id: 9, disciplina: "Legislação", enunciado: "A Lei de Acesso à Informação (Lei 12.527/11) estabelece que a informação sob custódia do Estado deve ser, em regra:", alternativas: { A: "Sigilosa por 25 anos.", B: "Restrita aos servidores públicos.", C: "Pública, sendo o sigilo a exceção.", D: "Divulgada apenas sob ordem judicial." }, gabarito: "C", explicacao: "A LAI fundamenta-se no princípio da publicidade máxima: o acesso é a regra e o sigilo a exceção." },
+
+    // --- ESPECÍFICOS (Almoxarifado e Redação Oficial) ---
+    { id: 10, disciplina: "Conhecimentos Específicos", enunciado: "Na gestão de estoques (Almoxarifado), o método PEPS consiste em:", alternativas: { A: "O último a entrar é o primeiro a sair.", B: "O primeiro a entrar é o primeiro a sair.", C: "O produto mais caro sai primeiro.", D: "O produto menor sai primeiro." }, gabarito: "B", explicacao: "PEPS (Primeiro que Entra, Primeiro que Sai) evita o vencimento ou obsolescência de itens estocados." },
+    { id: 11, disciplina: "Redação Oficial", enunciado: "O documento utilizado para comunicações entre unidades administrativas de um mesmo órgão público, seguindo o padrão ofício, é o:", alternativas: { A: "Alvará", B: "Memorando", C: "Edital", D: "Ata" }, gabarito: "B", explicacao: "Embora o Manual da Presidência tenha unificado o formato, o termo memorando ainda é usado para comunicação interna oficial." },
+    
+    // --- CONHECIMENTOS GERAIS (Passos e SAAE) ---
+    { id: 12, disciplina: "Conhecimentos Gerais", enunciado: "O SAAE de Passos é uma autarquia municipal. Qual a principal vantagem jurídica de uma autarquia?", alternativas: { A: "Não precisa de licitação.", B: "Possui patrimônio e receita próprios com autonomia administrativa.", C: "Os funcionários não precisam de concurso.", D: "Pode ter fins lucrativos como uma empresa privada." }, gabarito: "B", explicacao: "Autarquias são entes da administração indireta com autonomia para gerir seus próprios recursos e decisões." },
+
+    // ... (Continue adicionando até 50 questões seguindo estes temas do edital)
 ];
 
 let indiceAtual = 0;
@@ -52,14 +49,14 @@ app.post('/responder', (req, res) => {
         indiceAtual++;
         res.json({ 
             correta: true, 
-            mensagem: "Sensacional! Você acertou.",
+            mensagem: "Excelente! Você dominou o edital nesta questão.",
             explicacao: questao.explicacao, 
             proxima: true
         });
     } else {
         res.json({ 
             correta: false, 
-            mensagem: "Resposta incorreta. Analise as opções e tente novamente!",
+            mensagem: "Ops! Essa pegadinha do edital te pegou. Tente novamente!",
             explicacao: null, 
             proxima: false
         });
@@ -67,4 +64,4 @@ app.post('/responder', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Simulado rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Simulado V3 (Edital Completo) rodando na porta ${PORT}`));
