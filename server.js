@@ -77,13 +77,23 @@ app.post('/responder', (req, res) => {
     const { resposta } = req.body;
     const questao = bancoQuestoes[indiceAtual];
     const correta = (resposta === questao.gabarito);
-    if (correta) indiceAtual++;
-    res.json({ 
-        correta, 
-        mensagem: correta ? "Sensacional! Você acertou." : "Não foi dessa vez. Estude a explicação abaixo:",
-        explicacao: questao.explicacao,
-        proxima: correta
-    });
+    
+    if (correta) {
+        indiceAtual++;
+        res.json({ 
+            correta, 
+            mensagem: "Sensacional! Você acertou.",
+            explicacao: questao.explicacao, // Só envia se acertar
+            proxima: true
+        });
+    } else {
+        res.json({ 
+            correta, 
+            mensagem: "Resposta incorreta. Tente novamente!",
+            explicacao: null, // Esconde a explicação no erro
+            proxima: false
+        });
+    }
 });
 
 app.listen(3000, () => console.log("🔥 Servidor rodando!"));
