@@ -5,31 +5,28 @@ app.use(express.json());
 app.use(express.static('public'));
 
 const bancoQuestoes = [
-    // --- PORTUGUÊS (Interpretação, Crase e Sintaxe) ---
-    { id: 1, disciplina: "Português", enunciado: "De acordo com as normas de regência e crase, assinale a alternativa correta:", alternativas: { A: "O Agente Administrativo comunicou à todos a decisão.", B: "O servidor dirigiu-se à repartição para trabalhar.", C: "O documento foi entregue à ele ontem.", D: "As informações foram enviadas à uma funcionária externa." }, gabarito: "B", explicacao: "Quem se dirige, se dirige 'a'. 'Repartição' é feminino. A+A = À. Não se usa crase antes de pronomes masculinos ou indefinidos (A, C, D)." },
-    { id: 2, disciplina: "Português", enunciado: "Assinale a alternativa em que há erro de concordância verbal:", alternativas: { A: "Fazem dez meses que o concurso foi anunciado.", B: "Houve muitas dúvidas durante a prova.", C: "Devem existir soluções melhores para o problema.", D: "Trata-se de questões complexas." }, gabarito: "A", explicacao: "O verbo 'fazer' indicando tempo decorrido é impessoal e deve ficar no singular: 'Faz dez meses'." },
+    // --- LEGISLAÇÃO MUNICIPAL (Passos) & CONSTITUCIONAL ---
+    { id: 1, disciplina: "Lei Orgânica de Passos", enunciado: "De acordo com a Lei Orgânica do Município de Passos, a soberania popular é exercida pelo sufrágio universal e pelo voto direto e secreto, e, nos termos da lei, mediante:", alternativas: { A: "Apenas o Plebiscito.", B: "Plebiscito, Referendo e Iniciativa Popular.", C: "Apenas indicação do Prefeito.", D: "Votação em assembleia de bairro." }, gabarito: "B", explicacao: "A soberania popular em âmbito municipal segue o modelo constitucional de participação direta via plebiscito, referendo e iniciativa popular." },
+    { id: 2, disciplina: "Estatuto dos Servidores", enunciado: "Conforme o Estatuto dos Servidores de Passos, o servidor habilitado em concurso público e empossado em cargo de provimento efetivo adquirirá estabilidade após:", alternativas: { A: "2 anos de efetivo exercício.", B: "3 anos de efetivo exercício.", C: "5 anos de efetivo exercício.", D: "1 ano de efetivo exercício." }, gabarito: "B", explicacao: "Seguindo a Constituição Federal, o prazo para aquisição de estabilidade no serviço público é de 3 anos de efetivo exercício." },
+    { id: 3, disciplina: "Direito Constitucional", enunciado: "Segundo o Art. 5º da Constituição Federal, a casa é asilo inviolável do indivíduo, ninguém nela podendo penetrar sem consentimento do morador, SALVO:", alternativas: { A: "Em qualquer horário para busca e apreensão.", B: "Durante a noite para prisão administrativa.", C: "Durante o dia por determinação judicial.", D: "Somente em caso de incêndio." }, gabarito: "C", explicacao: "A entrada forçada pode ocorrer em caso de flagrante delito, desastre, para prestar socorro, ou, durante o dia, por determinação judicial." },
 
-    // --- RACIOCÍNIO LÓGICO (Conjuntos e Lógica) ---
-    { id: 3, disciplina: "Raciocínio Lógico", enunciado: "Em um conjunto de 50 servidores do SAAE, 30 trabalham no setor de Água e 25 no setor de Esgoto. Sabendo que 10 trabalham em ambos, quantos servidores trabalham APENAS no setor de Água?", alternativas: { A: "20", B: "15", C: "10", D: "5" }, gabarito: "A", explicacao: "Pelo Diagrama de Venn: (Total Água 30) - (Interseção 10) = 20 trabalham apenas na Água." },
-    { id: 4, disciplina: "Raciocínio Lógico", enunciado: "Considerando a sequência lógica: Círculo, Quadrado, Triângulo, Círculo, Quadrado... Qual será o 10º elemento?", alternativas: { A: "Círculo", B: "Quadrado", C: "Triângulo", D: "Pentágono" }, gabarito: "A", explicacao: "A sequência se repete a cada 3 elementos. 10 dividido por 3 sobra 1. O primeiro elemento da sequência é o Círculo." },
+    // --- MATEMÁTICA & RACIOCÍNIO LÓGICO ---
+    { id: 4, disciplina: "Linguagem de Conjuntos", enunciado: "Dados os conjuntos A = {1, 2, 3, 4} e B = {3, 4, 5, 6}, a operação de Intersecção (A ∩ B) resulta em:", alternativas: { A: "{1, 2, 5, 6}", B: "{3, 4}", C: "{1, 2, 3, 4, 5, 6}", D: "{1, 2}" }, gabarito: "B", explicacao: "A intersecção representa os elementos que pertencem a ambos os conjuntos simultaneamente (3 e 4)." },
+    { id: 5, disciplina: "Matemática", enunciado: "O Mínimo Múltiplo Comum (MMC) entre os números 12 e 18 é:", alternativas: { A: "6", B: "36", C: "72", D: "48" }, gabarito: "B", explicacao: "Os múltiplos de 12 (12, 24, 36...) e 18 (18, 36...). O menor comum é 36." },
+    { id: 6, disciplina: "Raciocínio Lógico", enunciado: "Em uma sequência de figuras: △, □, ◯, △, □, ◯... Qual será a figura que ocupará a 25ª posição?", alternativas: { A: "△ (Triângulo)", B: "□ (Quadrado)", C: "◯ (Círculo)", D: "X (Cruz)" }, gabarito: "A", explicacao: "A sequência tem padrão de 3 figuras. 25 dividido por 3 sobra 1. O primeiro elemento é o Triângulo." },
 
-    // --- INFORMÁTICA (IA, Backup e Windows 10) ---
-    { id: 5, disciplina: "Informática", enunciado: "Sobre o uso de Inteligência Artificial (IA) em ferramentas de produtividade, assinale a opção correta:", alternativas: { A: "O Copilot do Microsoft 365 só funciona para traduzir textos.", B: "IAs generativas podem auxiliar na automação de tarefas repetitivas e análise de dados.", C: "Assistentes virtuais não podem ser integrados ao Outlook.", D: "O Windows 10 não permite nenhum tipo de automação por voz." }, gabarito: "B", explicacao: "As IAs modernas em suítes de produtividade visam justamente automatizar tarefas e analisar grandes volumes de dados." },
-    { id: 6, disciplina: "Informática", enunciado: "Qual tipo de backup copia apenas os arquivos que foram alterados desde o último backup COMPLETO?", alternativas: { A: "Incremental", B: "Diferencial", C: "Espelhado", D: "Sintético" }, gabarito: "B", explicacao: "O backup Diferencial armazena as alterações em relação ao último Backup Cheio (Full)." },
+    // --- INFORMÁTICA (Incluindo IA e Backup) ---
+    { id: 7, disciplina: "Informática", enunciado: "Sobre o Windows 10, qual recurso é utilizado para alternar rapidamente entre janelas abertas utilizando apenas o teclado?", alternativas: { A: "Ctrl + S", B: "Alt + Tab", C: "Win + L", D: "Ctrl + P" }, gabarito: "B", explicacao: "O atalho Alt + Tab permite navegar entre as janelas e aplicativos em execução." },
+    { id: 8, disciplina: "Informática (IA)", enunciado: "O edital cita o uso de Inteligência Artificial para produtividade. No contexto do Microsoft 365, como a IA pode auxiliar um Agente Administrativo?", alternativas: { A: "Substituindo completamente a necessidade de redigir ofícios.", B: "Automatizando a criação de fórmulas complexas no Excel e sugerindo resumos de textos.", C: "Garantindo que o computador nunca precise de backup.", D: "Excluindo vírus automaticamente sem necessidade de antivírus." }, gabarito: "B", explicacao: "Ferramentas como o Copilot auxiliam na análise de dados e geração de conteúdo, aumentando a produtividade." },
 
-    // --- LEGISLAÇÃO (Passos, Licitações e LAI) ---
-    { id: 7, disciplina: "Legislação Municipal", enunciado: "De acordo com o Estatuto dos Servidores de Passos, a forma de provimento que consiste no retorno do servidor estável ao cargo anterior após reprovação em estágio probatório de outro cargo é:", alternativas: { A: "Reversão", B: "Reintegração", C: "Recondução", D: "Aproveitamento" }, gabarito: "C", explicacao: "A Recondução é o retorno ao cargo anterior por inabilitação em estágio probatório de outro cargo." },
-    { id: 8, disciplina: "Licitações (Lei 14.133)", enunciado: "Segundo a Nova Lei de Licitações (14.133/21), a modalidade de licitação obrigatória para a aquisição de bens e serviços comuns é o:", alternativas: { A: "Pregão", B: "Concurso", C: "Leilão", D: "Diálogo Competitivo" }, gabarito: "A", explicacao: "O Pregão é a modalidade para bens e serviços cujos padrões de desempenho podem ser definidos objetivamente." },
-    { id: 9, disciplina: "Legislação", enunciado: "A Lei de Acesso à Informação (Lei 12.527/11) estabelece que a informação sob custódia do Estado deve ser, em regra:", alternativas: { A: "Sigilosa por 25 anos.", B: "Restrita aos servidores públicos.", C: "Pública, sendo o sigilo a exceção.", D: "Divulgada apenas sob ordem judicial." }, gabarito: "C", explicacao: "A LAI fundamenta-se no princípio da publicidade máxima: o acesso é a regra e o sigilo a exceção." },
+    // --- CONHECIMENTOS ESPECÍFICOS (Almoxarifado e Licitação) ---
+    { id: 9, disciplina: "Licitações (Lei 14.133)", enunciado: "Conforme a nova Lei de Licitações, a modalidade que se destina à escolha de trabalho técnico, científico ou artístico, cujo critério de julgamento será o de melhor técnica ou conteúdo artístico, é o:", alternativas: { A: "Leilão", B: "Concurso", C: "Diálogo Competitivo", D: "Pregão" }, gabarito: "B", explicacao: "O Concurso é a modalidade para escolha de trabalho técnico ou artístico mediante prêmio ou remuneração." },
+    { id: 10, disciplina: "Almoxarifado", enunciado: "A gestão de estoques que prioriza a saída dos itens que estão há mais tempo no armazém para evitar perdas é conhecida como:", alternativas: { A: "UEPS (Último que entra, primeiro que sai)", B: "PEPS (Primeiro que entra, primeiro que sai)", C: "Custo Médio", D: "Just-in-Time" }, gabarito: "B", explicacao: "O método PEPS garante a rotatividade do estoque, priorizando os lotes mais antigos." },
 
-    // --- ESPECÍFICOS (Almoxarifado e Redação Oficial) ---
-    { id: 10, disciplina: "Conhecimentos Específicos", enunciado: "Na gestão de estoques (Almoxarifado), o método PEPS consiste em:", alternativas: { A: "O último a entrar é o primeiro a sair.", B: "O primeiro a entrar é o primeiro a sair.", C: "O produto mais caro sai primeiro.", D: "O produto menor sai primeiro." }, gabarito: "B", explicacao: "PEPS (Primeiro que Entra, Primeiro que Sai) evita o vencimento ou obsolescência de itens estocados." },
-    { id: 11, disciplina: "Redação Oficial", enunciado: "O documento utilizado para comunicações entre unidades administrativas de um mesmo órgão público, seguindo o padrão ofício, é o:", alternativas: { A: "Alvará", B: "Memorando", C: "Edital", D: "Ata" }, gabarito: "B", explicacao: "Embora o Manual da Presidência tenha unificado o formato, o termo memorando ainda é usado para comunicação interna oficial." },
-    
     // --- CONHECIMENTOS GERAIS (Passos e SAAE) ---
-    { id: 12, disciplina: "Conhecimentos Gerais", enunciado: "O SAAE de Passos é uma autarquia municipal. Qual a principal vantagem jurídica de uma autarquia?", alternativas: { A: "Não precisa de licitação.", B: "Possui patrimônio e receita próprios com autonomia administrativa.", C: "Os funcionários não precisam de concurso.", D: "Pode ter fins lucrativos como uma empresa privada." }, gabarito: "B", explicacao: "Autarquias são entes da administração indireta com autonomia para gerir seus próprios recursos e decisões." },
-
-    // ... (Continue adicionando até 50 questões seguindo estes temas do edital)
+    { id: 11, disciplina: "Conhecimentos Gerais", enunciado: "O Serviço Autônomo de Água e Esgoto (SAAE) de Passos é classificado juridicamente como:", alternativas: { A: "Sociedade de Economia Mista.", B: "Empresa Pública.", C: "Autarquia Municipal.", D: "Órgão da administração direta." }, gabarito: "C", explicacao: "O SAAE é uma autarquia, dotada de autonomia administrativa e financeira, vinculada ao município de Passos." }
+    
+    // ... Complete até 50 questões seguindo o equilíbrio do edital enviado.
 ];
 
 let indiceAtual = 0;
@@ -49,14 +46,14 @@ app.post('/responder', (req, res) => {
         indiceAtual++;
         res.json({ 
             correta: true, 
-            mensagem: "Excelente! Você dominou o edital nesta questão.",
+            mensagem: "Sensacional! Você acertou uma questão chave do edital.",
             explicacao: questao.explicacao, 
             proxima: true
         });
     } else {
         res.json({ 
             correta: false, 
-            mensagem: "Ops! Essa pegadinha do edital te pegou. Tente novamente!",
+            mensagem: "Resposta incorreta. Analise o conteúdo do edital e tente novamente!",
             explicacao: null, 
             proxima: false
         });
@@ -64,4 +61,4 @@ app.post('/responder', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Simulado V3 (Edital Completo) rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Simulado V3 (SAAE Passos) rodando na porta ${PORT}`));
