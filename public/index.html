@@ -3,65 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulado SAAE Passos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <title>Simulado Premium | SAAE Passos MG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #004aad; --accent: #ffcc00; --success: #27ae60; --danger: #e74c3c; --bg: #f4f7fa; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; display: flex; flex-direction: column; align-items: center; }
-        header { width: 100%; background: var(--primary); color: white; padding: 50px 0 80px; text-align: center; }
-        .container { width: 90%; max-width: 700px; margin-top: -50px; background: white; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; }
-        .content { padding: 30px; }
-        .badge { background: #eef2f7; color: var(--primary); padding: 5px 15px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; }
-        h2 { font-family: 'Poppins'; color: #333; margin: 20px 0; }
-        .option { border: 2px solid #eee; padding: 15px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; transition: 0.2s; }
-        .option:hover { border-color: var(--primary); background: #f9fbff; }
-        .option.selected { border-color: var(--primary); background: #f0f7ff; }
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 20px; }
+        :root {
+            --primary: #004aad;
+            --primary-dark: #00337a;
+            --accent: #ffcc00;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --bg: #f4f7fa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 60px 0 90px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .header-content i { font-size: 3rem; margin-bottom: 15px; color: var(--accent); }
+        .header-content h1 { margin: 0; font-family: 'Poppins'; font-size: 2.5rem; }
+        .header-content p { margin: 10px 0 0; opacity: 0.9; font-size: 1.1rem; font-weight: 500; }
+
+        .container {
+            width: 95%;
+            max-width: 750px;
+            margin-top: -50px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content { padding: 40px; }
+        .meta-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .badge { background: #eef2f7; color: var(--primary); padding: 8px 15px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+        .counter { font-weight: 600; color: var(--primary); }
+
+        h2 { font-family: 'Poppins', sans-serif; color: #2c3e50; font-size: 1.35rem; line-height: 1.6; margin-bottom: 30px; }
+
+        .options-list { display: grid; gap: 15px; }
+        .option {
+            border: 2px solid #e0e6ed;
+            padding: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+        }
+        .option:hover { border-color: var(--primary); background: #f0f7ff; }
+        .option.selected { border-color: var(--primary); background: #f0f7ff; box-shadow: 0 4px 12px rgba(0,74,173,0.1); }
+
+        .radio-dot { width: 20px; height: 20px; border: 2px solid #bdc3c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        input[type="radio"] { display: none; }
+        .option.selected .radio-dot { border-color: var(--primary); }
+        .option.selected .radio-dot::after { content: ""; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
         .btn-confirm { background: var(--primary); color: white; }
+        .btn-confirm:hover { background: var(--primary-dark); transform: translateY(-2px); }
         .btn-next { background: var(--success); color: white; display: none; }
-        .feedback { display: none; padding: 20px; border-radius: 12px; margin-top: 20px; animation: fadeIn 0.3s; }
-        .feedback.correct { background: #d4edda; color: #155724; border-left: 5px solid var(--success); }
-        .feedback.wrong { background: #f8d7da; color: #721c24; border-left: 5px solid var(--danger); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-retry { background: #606f7b; color: white; display: none; }
+
+        .feedback { display: none; margin-top: 25px; padding: 25px; border-radius: 15px; animation: slideIn 0.4s ease; }
+        .feedback.correct { background: #d4edda; border-left: 8px solid var(--success); color: #155724; }
+        .feedback.wrong { background: #f8d7da; border-left: 8px solid var(--danger); color: #721c24; }
+        .explanation { margin-top: 15px; font-size: 1rem; line-height: 1.5; background: rgba(255,255,255,0.6); padding: 15px; border-radius: 10px; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        footer { margin: 40px 0; color: #95a5a6; font-size: 0.9rem; font-weight: 500; }
     </style>
 </head>
 <body>
+
     <header>
-        <i class="fa-solid fa-droplet" style="font-size: 2.5rem; color: var(--accent);"></i>
-        <h1>SAAE PASSOS</h1>
-        <p>Simulado Preparatório - V2</p>
+        <div class="header-content">
+            <i class="fa-solid fa-droplet"></i>
+            <h1>SAAE PASSOS</h1>
+            <p>Agente Administrativo - Simulado V2</p>
+        </div>
     </header>
+
     <div class="container">
-        <div class="content">
-            <span class="badge" id="tag">CARREGANDO...</span>
-            <h2 id="enunciado">Preparando questões...</h2>
-            <div id="options"></div>
-            <button class="btn btn-confirm" id="btnAction" onclick="verificar()">Confirmar Resposta</button>
+        <div class="content" id="quizBody">
+            <div class="meta-info">
+                <span class="badge" id="tag">CARREGANDO...</span>
+                <span class="counter">Questão <span id="qNum">1</span></span>
+            </div>
+
+            <h2 id="enunciado">Carregando questões...</h2>
+
+            <div class="options-list" id="options"></div>
+
+            <button class="btn btn-confirm" id="btnAction" onclick="verificar()">
+                <i class="fa-solid fa-check-double"></i> Confirmar Resposta
+            </button>
+
             <div id="feedback" class="feedback">
-                <strong id="fStatus"></strong>
-                <div id="explicacao" style="margin-top: 10px; font-size: 0.9rem;"></div>
-                <button class="btn btn-next" id="btnNext" onclick="proxima()">Próxima Questão</button>
-                <button class="btn btn-confirm" id="btnRetry" style="display:none; background: #666;" onclick="tentarNovamente()">Tentar Novamente</button>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i id="fIcon" class="fa-solid" style="font-size: 1.6rem;"></i>
+                    <strong id="fStatus" style="font-size: 1.2rem;"></strong>
+                </div>
+                <div class="explanation" id="explicacao"></div>
+                
+                <button class="btn btn-next" id="btnNext" onclick="proxima()">
+                    Próxima Questão <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                
+                <button class="btn btn-retry" id="btnRetry" onclick="tentarNovamente()">
+                    <i class="fa-solid fa-rotate-left"></i> Tentar Novamente
+                </button>
             </div>
         </div>
     </div>
+
+    <footer>&copy; 2026 Simulado SAAE Passos</footer>
+
     <script>
         async function carregar() {
             const res = await fetch('/questao');
             const q = await res.json();
             if (q.fim) { finalizar(); return; }
+
+            document.getElementById('qNum').innerText = q.id;
             document.getElementById('tag').innerText = q.disciplina;
             document.getElementById('enunciado').innerText = q.enunciado;
+            
             const list = document.getElementById('options');
             list.innerHTML = '';
             for (let letra in q.alternativas) {
-                list.innerHTML += `<label class="option" onclick="selecionar(this)"><input type="radio" name="resp" value="${letra}" style="display:none"><strong>${letra})</strong> ${q.alternativas[letra]}</label>`;
+                list.innerHTML += `
+                    <label class="option" onclick="selecionar(this)">
+                        <input type="radio" name="resp" value="${letra}">
+                        <div class="radio-dot"></div>
+                        <span><strong>${letra})</strong> ${q.alternativas[letra]}</span>
+                    </label>`;
             }
             document.getElementById('feedback').style.display = 'none';
-            document.getElementById('btnAction').style.display = 'block';
-            document.getElementById('btnNext').style.display = 'none';
-            document.getElementById('btnRetry').style.display = 'none';
+            document.getElementById('btnAction').style.display = 'flex';
         }
 
         function selecionar(el) {
@@ -73,44 +187,50 @@
         async function verificar() {
             const sel = document.querySelector('input[name="resp"]:checked');
             if (!sel) return;
+
             const res = await fetch('/responder', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ resposta: sel.value })
             });
             const dados = await res.json();
+            
             const f = document.getElementById('feedback');
             f.style.display = 'block';
             f.className = dados.correta ? 'feedback correct' : 'feedback wrong';
-            document.getElementById('fStatus').innerText = dados.mensagem;
             
-            // Removemos a "Dica do Professor" e mostramos apenas a explicação real no acerto
+            document.getElementById('fStatus').innerText = dados.mensagem;
+            document.getElementById('fIcon').className = dados.correta ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-exclamation';
             document.getElementById('explicacao').innerHTML = dados.correta ? dados.explicacao : "";
+            
+            document.getElementById('btnAction').style.display = 'none';
 
             if (dados.correta) {
-                document.getElementById('btnAction').style.display = 'none';
-                document.getElementById('btnNext').style.display = 'block';
+                document.getElementById('btnNext').style.display = 'flex';
                 document.getElementById('btnRetry').style.display = 'none';
             } else {
-                document.getElementById('btnAction').style.display = 'none';
                 document.getElementById('btnNext').style.display = 'none';
-                document.getElementById('btnRetry').style.display = 'block';
+                document.getElementById('btnRetry').style.display = 'flex';
             }
         }
 
         function tentarNovamente() {
             document.getElementById('feedback').style.display = 'none';
-            document.getElementById('btnAction').style.display = 'block';
-            document.getElementById('btnRetry').style.display = 'none';
-            // Desmarca a opção anterior para obrigar nova escolha
+            document.getElementById('btnAction').style.display = 'flex';
             document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
             document.querySelectorAll('input[name="resp"]').forEach(i => i.checked = false);
         }
 
         function proxima() { carregar(); }
-        
+
         function finalizar() {
-            document.querySelector('.content').innerHTML = "<div style='text-align:center'><h2>Parabéns!</h2><p>Você concluiu o simulado V2.</p><button class='btn btn-confirm' onclick='location.reload()'>Reiniciar</button></div>";
+            document.getElementById('quizBody').innerHTML = `
+                <div style="text-align: center; padding: 40px 0;">
+                    <i class="fa-solid fa-trophy" style="font-size: 5rem; color: #ffcc00; margin-bottom: 20px;"></i>
+                    <h2>Simulado Concluído!</h2>
+                    <p>Você revisou os principais pontos da banca IBGP.</p>
+                    <button class="btn btn-confirm" onclick="location.reload()">Recomeçar Simulado</button>
+                </div>`;
         }
         carregar();
     </script>
