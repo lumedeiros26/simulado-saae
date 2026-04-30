@@ -20,32 +20,57 @@
             overflow-x: hidden;
         }
         
-        /* Elementos decorativos laterais (Mais chamativos e parados) */
+        /* Figuras Coloridas e Chamativas nas Laterais */
         .decoration {
             position: fixed;
-            font-size: 12rem; /* Figuras maiores */
-            color: rgba(0, 74, 173, 0.12); /* Opacidade aumentada para aparecer mais */
+            font-size: 10rem; 
             z-index: -1;
             pointer-events: none;
+            opacity: 0.25; /* Mais visível, mas sem atrapalhar a leitura */
+            filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.1));
         }
-        /* Posições fixas nas laterais */
-        .dec-1 { top: 5%; left: 2%; transform: rotate(-10deg); }
-        .dec-2 { bottom: 5%; left: 2%; transform: rotate(10deg); }
-        .dec-3 { top: 5%; right: 2%; transform: rotate(15deg); }
-        .dec-4 { bottom: 5%; right: 2%; transform: rotate(-15deg); }
+        /* Cores específicas para cada tema do edital */
+        .dec-1 { top: 8%; left: 2%; color: #3498db; transform: rotate(-15deg); } /* Água/SAAE */
+        .dec-2 { bottom: 12%; left: 3%; color: #e67e22; transform: rotate(10deg); } /* Maleta/Adm */
+        .dec-3 { top: 15%; right: 2%; color: #9b59b6; transform: rotate(20deg); } /* Calculadora/RLM */
+        .dec-4 { bottom: 8%; right: 4%; color: #e74c3c; transform: rotate(-10deg); } /* Justiça/Lei */
 
         header { width: 100%; background: var(--primary); color: white; padding: 50px 0 80px; text-align: center; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         header h1 { font-family: 'Poppins'; margin: 10px 0; font-size: 2.5rem; }
         
-        .container { width: 90%; max-width: 700px; margin-top: -50px; background: white; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 50px; border: 1px solid rgba(0,0,0,0.05); }
-        .content { padding: 40px; }
+        .container { 
+            width: 90%; 
+            max-width: 700px; 
+            margin-top: -50px; 
+            background: white; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            overflow: hidden; 
+            margin-bottom: 50px; 
+            border: 1px solid rgba(0,0,0,0.05); 
+            position: relative;
+        }
         
-        .badge { background: #eef2f7; color: var(--primary); padding: 8px 18px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
-        h2 { font-family: 'Poppins'; color: #333; margin: 25px 0; line-height: 1.4; font-size: 1.4rem; }
+        .content { padding: 55px 40px 40px 40px; }
         
-        .option { border: 2px solid #eee; padding: 18px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 14px; margin-bottom: 14px; transition: 0.2s; font-weight: 500; font-size: 1.05rem; }
+        .badge { 
+            background: #eef2f7; 
+            color: var(--primary); 
+            padding: 10px 22px; 
+            border-radius: 50px; 
+            font-weight: 800; 
+            font-size: 1rem; 
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        h2 { font-family: 'Poppins'; color: #333; margin: 10px 0 30px 0; line-height: 1.5; font-size: 1.45rem; }
+        
+        .option { border: 2px solid #eee; padding: 18px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 14px; margin-bottom: 14px; transition: 0.2s; font-weight: 500; font-size: 1.1rem; background: #fff; }
         .option:hover { border-color: var(--primary); background: #f9fbff; }
-        .option.selected { border-color: var(--primary); background: #f0f7ff; box-shadow: 0 4px 10px rgba(0,74,173,0.1); }
+        .option.selected { border-color: var(--primary); background: #f0f7ff; box-shadow: 0 4px 12px rgba(0,74,173,0.1); }
 
         .btn { 
             width: 100%; padding: 18px; border: none; border-radius: 14px; font-family: 'Poppins'; 
@@ -64,17 +89,16 @@
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Em tablets e celulares, as figuras laterais sumirão para não poluir o conteúdo */
-        @media (max-width: 1100px) { .decoration { display: none; } }
+        @media (max-width: 1150px) { .decoration { display: none; } }
     </style>
 </head>
 <body>
 
-    <!-- Ícones Decorativos Maiores e Mais Visíveis -->
-    <i class="fa-solid fa-faucet-drip decoration dec-1"></i>
-    <i class="fa-solid fa-briefcase decoration dec-2"></i>
-    <i class="fa-solid fa-calculator decoration dec-3"></i>
-    <i class="fa-solid fa-gavel decoration dec-4"></i>
+    <!-- Figuras Coloridas -->
+    <i class="fa-solid fa-faucet-drip decoration dec-1"></i> <!-- Água -->
+    <i class="fa-solid fa-briefcase decoration dec-2"></i> <!-- Adm -->
+    <i class="fa-solid fa-calculator decoration dec-3"></i> <!-- Raciocínio -->
+    <i class="fa-solid fa-gavel decoration dec-4"></i> <!-- Lei -->
 
     <header>
         <i class="fa-solid fa-droplet" style="font-size: 3rem; color: var(--accent);"></i>
@@ -84,7 +108,10 @@
 
     <div class="container">
         <div class="content" id="quizBody">
-            <span class="badge" id="tag">CARREGANDO...</span>
+            <div style="text-align: left;">
+                <span class="badge" id="tag">CARREGANDO...</span>
+            </div>
+            
             <h2 id="enunciado">Buscando questão no edital...</h2>
             
             <div id="options"></div>
@@ -98,10 +125,10 @@
                     <i id="fIcon" class="fa-solid" style="font-size: 2rem;"></i>
                     <strong id="fStatus" style="font-size: 1.2rem;"></strong>
                 </div>
-                <div id="explicacao" style="margin-top: 15px; font-size: 1rem; line-height: 1.5;"></div>
+                <div id="explicacao" style="margin-top: 15px; font-size: 1.05rem; line-height: 1.6;"></div>
                 
                 <button class="btn btn-next" id="btnNext" onclick="proxima()">
-                    Próxima Questão <i class="fa-solid fa-arrow-right-icon"></i>
+                    Próxima Questão <i class="fa-solid fa-arrow-right"></i>
                 </button>
                 
                 <button class="btn btn-retry" id="btnRetry" onclick="tentarNovamente()">
@@ -166,7 +193,6 @@
                 document.getElementById('btnNext').style.display = 'flex';
                 document.getElementById('btnRetry').style.display = 'none';
             } else {
-                document.getElementById('btnAction').style.display = 'none';
                 document.getElementById('btnNext').style.display = 'none';
                 document.getElementById('btnRetry').style.display = 'flex';
             }
@@ -185,9 +211,9 @@
         function finalizar() {
             document.getElementById('quizBody').innerHTML = `
                 <div style="text-align:center; padding: 30px 0;">
-                    <i class="fa-solid fa-medal" style="font-size: 5rem; color: #ffcc00;"></i>
-                    <h2 style="margin-top: 20px;">Simulado Concluído!</h2>
-                    <p style="font-size: 1.1rem;">Você está cada vez mais perto da sua vaga no SAAE.</p>
+                    <i class="fa-solid fa-medal" style="font-size: 5.5rem; color: #ffcc00; filter: drop-shadow(0 0 10px rgba(255,204,0,0.3));"></i>
+                    <h2 style="margin-top: 25px;">Simulado Concluído!</h2>
+                    <p style="font-size: 1.15rem; color: #666;">Parabéns Luiza! Você completou a revisão do edital.</p>
                     <button class="btn btn-confirm" onclick="location.reload()">Reiniciar Simulado</button>
                 </div>`;
         }
