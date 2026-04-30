@@ -1,68 +1,38 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 
 app.use(express.json());
 app.use(express.static('public'));
 
 const bancoQuestoes = [
-    // --- PORTUGUÊS ---
-    { id: 1, disciplina: "Português", enunciado: "Assinale a alternativa em que a palavra está grafada corretamente:", alternativas: { A: "Excessão", B: "Exceção", C: "Eçessão", D: "Exsessão" }, gabarito: "B", explicacao: "A grafia correta é 'Exceção', com 'x' e 'ç'. Vem do latim 'exceptio'." },
-    { id: 2, disciplina: "Português", enunciado: "Qual o plural de 'Cidadão'?", alternativas: { A: "Cidadões", B: "Cidadães", C: "Cidadãos", D: "Cidadonistas" }, gabarito: "C", explicacao: "Palavras como cidadão, cristão e cortês fazem o plural em 'ãos'." },
-    { id: 3, disciplina: "Português", enunciado: "Sinônimo de 'Incipiente':", alternativas: { A: "Sábio", B: "Ignorante", C: "Iniciante", D: "Experiente" }, gabarito: "C", explicacao: "Incipiente com 'C' significa que algo está no início. (Insipiente com 'S' seria ignorante)." },
-    { id: 4, disciplina: "Português", enunciado: "Assinale a frase com erro de concordância:", alternativas: { A: "Faz dois anos que não o vejo.", B: "Houve muitos acidentes.", C: "Devem haver soluções.", D: "Faz calor agora." }, gabarito: "C", explicacao: "O verbo 'haver' (sentido de existir) é impessoal. O correto seria 'Deve haver soluções'." },
-    { id: 5, disciplina: "Português", enunciado: "A palavra 'SAAE' é um:", alternativas: { A: "Dígrafo", B: "Hiato", C: "Ditongo", D: "Tritongo" }, gabarito: "B", explicacao: "No SAAE (sa-a-e), as vogais se separam em sílabas diferentes, o que caracteriza um hiato." },
-    { id: 6, disciplina: "Português", enunciado: "Qual o antônimo de 'Efemêro'?", alternativas: { A: "Passageiro", B: "Duradouro", C: "Rápido", D: "Curto" }, gabarito: "B", explicacao: "Efemêro é algo que dura pouco; duradouro é o oposto." },
-    { id: 7, disciplina: "Português", enunciado: "Indique a alternativa onde o uso da crase é PROIBIDO:", alternativas: { A: "Fui à escola.", B: "Caminhamos à pé.", C: "Entreguei à diretora.", D: "Às vezes saio." }, gabarito: "B", explicacao: "Não se usa crase antes de palavras masculinas (pé é masculino)." },
-    { id: 8, disciplina: "Português", enunciado: "Qual a função do 'que' em: 'Desejo que sejas feliz'?", alternativas: { A: "Pronome", B: "Conjunção integrante", C: "Adjetivo", D: "Advérbio" }, gabarito: "B", explicacao: "O 'que' liga a oração principal à subordinada completando o sentido do verbo desejar." },
-    { id: 9, disciplina: "Português", enunciado: "O coletivo de 'Lobos' é:", alternativas: { A: "Enxame", B: "Alcateia", C: "Cardume", D: "Rebanho" }, gabarito: "B", explicacao: "Alcateia é o substantivo coletivo para lobos." },
-    { id: 10, disciplina: "Português", enunciado: "Significado de 'Ratificar':", alternativas: { A: "Mudar", B: "Corrigir", C: "Confirmar", D: "Apagar" }, gabarito: "C", explicacao: "Ratificar significa confirmar. (Retificar significa corrigir)." },
+    // --- PORTUGUÊS & REDAÇÃO OFICIAL ---
+    { id: 1, disciplina: "Redação Oficial", enunciado: "Segundo o Manual da Presidência, o fecho adequado para autoridades de mesma hierarquia é:", alternativas: { A: "Respeitosamente", B: "Cordialmente", C: "Atenciosamente", D: "Com estima" }, gabarito: "C", explicacao: "Usa-se 'Atenciosamente' para autoridades de mesma hierarquia ou inferior." },
+    { id: 2, disciplina: "Português", enunciado: "Assinale a alternativa com a grafia CORRETA:", alternativas: { A: "Analizar", B: "Paralizar", C: "Catequizar", D: "Pesquisar" }, gabarito: "D", explicacao: "'Pesquisar' mantém o 's' do radical. Catequizar é com 'z'." },
+    { id: 3, disciplina: "Português", enunciado: "O plural de 'Cidadão' e 'Escrivão' é:", alternativas: { A: "Cidadões e Escrivões", B: "Cidadãos e Escrivães", C: "Cidadãos e Escrivões", D: "Cidadões e Escrivães" }, gabarito: "B", explicacao: "Cidadãos (único plural) e Escrivães (plural mais comum)." },
+    { id: 4, disciplina: "Redação Oficial", enunciado: "O pronome de tratamento para Reitores de Universidades é:", alternativas: { A: "Vossa Excelência", B: "Vossa Magnificência", C: "Vossa Senhoria", D: "Vossa Santidade" }, gabarito: "B", explicacao: "Magnificência é exclusivo para Reitores." },
+    { id: 5, disciplina: "Português", enunciado: "Usa-se a crase obrigatoriamente em:", alternativas: { A: "Vendeu a prazo.", B: "Caminhou a pé.", C: "Chegou à uma hora.", D: "Fui à escola." }, gabarito: "D", explicacao: "Quem vai, vai 'a'. Escola é feminino 'a'. A+A = À." },
 
-    // --- RLM / MATEMÁTICA ---
-    { id: 11, disciplina: "Matemática", enunciado: "Qual a raiz quadrada de 144?", alternativas: { A: "10", B: "11", C: "12", D: "14" }, gabarito: "C", explicacao: "12 vezes 12 é igual a 144." },
-    { id: 12, disciplina: "Matemática", enunciado: "20% de 150 é:", alternativas: { A: "20", B: "25", C: "30", D: "35" }, gabarito: "C", explicacao: "0,20 * 150 = 30." },
-    { id: 13, disciplina: "RLM", enunciado: "Próximo número da sequência: 2, 4, 8, 16...", alternativas: { A: "24", B: "30", C: "32", D: "64" }, gabarito: "C", explicacao: "A lógica é o dobro do número anterior. 16 * 2 = 32." },
-    { id: 14, disciplina: "Matemática", enunciado: "Se um reservatório gasta 5L em 2h, quanto gasta em 6h?", alternativas: { A: "10L", B: "15L", C: "20L", D: "25L" }, gabarito: "B", explicacao: "Proporção simples: se o tempo triplicou, o gasto triplica. 5 * 3 = 15." },
-    { id: 15, disciplina: "RLM", enunciado: "Se todo A é B, e C é A, então:", alternativas: { A: "C é B", B: "B é C", C: "C não é B", D: "A não é B" }, gabarito: "A", explicacao: "Lógica dedutiva (Silogismo). Se C está dentro de A, e A está dentro de B, C está dentro de B." },
-    { id: 16, disciplina: "Matemática", enunciado: "Quanto é 3/4 de 100?", alternativas: { A: "25", B: "50", C: "75", D: "80" }, gabarito: "C", explicacao: "100 dividido por 4 é 25. 25 vezes 3 é 75." },
-    { id: 17, disciplina: "Matemática", enunciado: "Resultado de (5 + 5) * 2 / 2:", alternativas: { A: "5", B: "10", C: "15", D: "20" }, gabarito: "B", explicacao: "Parênteses primeiro: 10 * 2 = 20. 20 / 2 = 10." },
-    { id: 18, disciplina: "RLM", enunciado: "A negação de 'Todos são felizes' é:", alternativas: { A: "Ninguém é feliz", B: "Algum não é feliz", C: "Todos são tristes", D: "Muitos são felizes" }, gabarito: "B", explicacao: "Para negar 'todos', basta que ao menos UM não seja." },
-    { id: 19, disciplina: "Matemática", enunciado: "Um ângulo reto possui quantos graus?", alternativas: { A: "45°", B: "90°", C: "180°", D: "360°" }, gabarito: "B", explicacao: "Ângulo reto é o ângulo de 90 graus (formato de L)." },
-    { id: 20, disciplina: "Matemática", enunciado: "1kg de cloro trata 1000L. Quantos kg para 5000L?", alternativas: { A: "1", B: "2", C: "5", D: "10" }, gabarito: "C", explicacao: "Se 1 trata 1000, 5 tratam 5000." },
+    // --- DIREITO ADM & LEGISLAÇÃO ---
+    { id: 6, disciplina: "Direito Adm", enunciado: "O SAAE é uma Autarquia, o que significa que possui:", alternativas: { A: "Subordinação total ao Prefeito", B: "Autonomia administrativa e financeira", C: "Fins lucrativos", D: "Natureza privada" }, gabarito: "B", explicacao: "Autarquias são entes descentralizados com autonomia própria." },
+    { id: 7, disciplina: "Direito Adm", enunciado: "Qual princípio proíbe a promoção pessoal em obras públicas?", alternativas: { A: "Legalidade", B: "Impessoalidade", C: "Eficiência", D: "Publicidade" }, gabarito: "B", explicacao: "A obra é do Estado, não do gestor." },
+    { id: 8, disciplina: "Legislação", enunciado: "A investidura em cargo público ocorre com a:", alternativas: { A: "Nomeação", B: "Posse", C: "Exercício", D: "Prova" }, gabarito: "B", explicacao: "A posse completa a investidura do servidor." },
+    { id: 9, disciplina: "Direito Adm", enunciado: "Atributo do ato adm que permite execução imediata:", alternativas: { A: "Tipicidade", B: "Imperatividade", C: "Autoexecutoriedade", D: "Legitimidade" }, gabarito: "C", explicacao: "Permite agir sem prévia autorização judicial." },
+    { id: 10, disciplina: "Legislação", enunciado: "Estágio probatório dura:", alternativas: { A: "2 anos", B: "3 anos", C: "5 anos", D: "1 ano" }, gabarito: "B", explicacao: "Conforme a CF/88, são 3 anos de efetivo exercício." },
 
-    // --- INFORMÁTICA ---
-    { id: 21, disciplina: "Informática", enunciado: "Atalho para fechar uma janela no Windows:", alternativas: { A: "Alt+F4", B: "Ctrl+C", C: "Ctrl+V", D: "Win+L" }, gabarito: "A", explicacao: "Alt+F4 encerra o programa ou janela ativa." },
-    { id: 22, disciplina: "Informática", enunciado: "O que é o Google Chrome?", alternativas: { A: "Hardware", B: "Sistema Operacional", C: "Navegador", D: "Site de busca" }, gabarito: "C", explicacao: "O Chrome é um software de navegação na web." },
-    { id: 23, disciplina: "Informática", enunciado: "Memória RAM serve para:", alternativas: { A: "Armazenar fotos", B: "Velocidade temporária", C: "Desligar o PC", D: "Limpar vírus" }, gabarito: "B", explicacao: "RAM é memória de acesso rápido para o que está rodando agora." },
-    { id: 24, disciplina: "Informática", enunciado: "Atalho para Negrito no Word (Brasil):", alternativas: { A: "Ctrl+B", B: "Ctrl+N", C: "Ctrl+I", D: "Ctrl+S" }, gabarito: "B", explicacao: "No Word em português, Ctrl+N ativa o negrito." },
-    { id: 25, disciplina: "Informática", enunciado: "O 'Cérebro' do computador é o:", alternativas: { A: "Monitor", B: "HD", C: "Processador (CPU)", D: "Teclado" }, gabarito: "C", explicacao: "A CPU processa todas as instruções do sistema." },
-    { id: 26, disciplina: "Informática", enunciado: "WWW significa:", alternativas: { A: "World Wide Web", B: "Wide World Web", C: "World Web Wide", D: "Rede Mundial" }, gabarito: "A", explicacao: "World Wide Web ou 'Rede de Alcance Mundial'." },
-    { id: 27, disciplina: "Informática", enunciado: "O Windows é um:", alternativas: { A: "Software aplicativo", B: "Sistema Operacional", C: "Hardware", D: "Antivírus" }, gabarito: "B", explicacao: "O Windows gerencia todo o hardware e software do PC." },
-    { id: 28, disciplina: "Informática", enunciado: "Um Pendrive é um dispositivo de:", alternativas: { A: "Entrada apenas", B: "Saída apenas", C: "Armazenamento", D: "Processamento" }, gabarito: "C", explicacao: "Usado para salvar e transportar arquivos." },
-    { id: 29, disciplina: "Informática", enunciado: "Extensão padrão de arquivos de texto simples:", alternativas: { A: ".jpg", B: ".mp3", C: ".txt", D: ".exe" }, gabarito: "C", explicacao: ".txt é o formato do Bloco de Notas." },
-    { id: 30, disciplina: "Informática", enunciado: "Atalho para imprimir:", alternativas: { A: "Ctrl+I", B: "Ctrl+P", C: "Ctrl+S", D: "Ctrl+A" }, gabarito: "B", explicacao: "Ctrl+P (Print) é o comando de impressão." },
+    // --- ARQUIVOLOGIA & ATENDIMENTO ---
+    { id: 11, disciplina: "Arquivologia", enunciado: "Arquivos de uso frequente são chamados de:", alternativas: { A: "Correntes", B: "Intermediários", C: "Permanentes", D: "Mortos" }, gabarito: "A", explicacao: "Arquivos correntes são os de consulta diária." },
+    { id: 12, disciplina: "Atendimento", enunciado: "A postura correta diante de um cidadão irritado é:", alternativas: { A: "Ser ríspido", B: "Manter a calma e empatia", C: "Ignorar", D: "Chamar a polícia de imediato" }, gabarito: "B", explicacao: "Urbanidade é dever do servidor." },
+    { id: 13, disciplina: "Arquivologia", enunciado: "Método que organiza por assunto:", alternativas: { A: "Alfabético", B: "Numérico", C: "Ideográfico", D: "Geográfico" }, gabarito: "C", explicacao: "Ideográfico foca na ideia/tema." },
+    { id: 14, disciplina: "Arquivologia", enunciado: "Documentos de valor histórico ficam no arquivo:", alternativas: { A: "Corrente", B: "Intermediário", C: "Permanente", D: "Setorial" }, gabarito: "C", explicacao: "O arquivo permanente nunca é descartado." },
+    { id: 15, disciplina: "Atendimento", enunciado: "O atendimento preferencial é garantido para:", alternativas: { A: "Apenas idosos", B: "Idosos, gestantes e pessoas com deficiência", C: "Quem chegar primeiro", D: "Amigos do servidor" }, gabarito: "B", explicacao: "Lei Federal garante a prioridade nestes casos." },
 
-    // --- LEGISLAÇÃO / SAAE ---
-    { id: 31, disciplina: "Legislação", enunciado: "O SAAE Passos é uma:", alternativas: { A: "Empresa Privada", B: "Autarquia", C: "ONG", D: "Fundação" }, gabarito: "B", explicacao: "Autarquias possuem autonomia e são criadas por lei específica." },
-    { id: 32, disciplina: "SAAE", enunciado: "Sigla para Estação de Tratamento de Água:", alternativas: { A: "ETE", B: "ETA", C: "SAE", D: "EPS" }, gabarito: "B", explicacao: "ETA = Estação de Tratamento de Água." },
-    { id: 33, disciplina: "Legislação", enunciado: "A investidura no cargo ocorre com a:", alternativas: { A: "Nomeação", B: "Posse", C: "Prova", D: "Aposentadoria" }, gabarito: "B", explicacao: "É na posse que o servidor aceita as atribuições do cargo." },
-    { id: 34, disciplina: "SAAE", enunciado: "O cloro na água serve para:", alternativas: { A: "Tirar o barro", B: "Desinfecção", C: "Fazer espuma", D: "Mudar o gosto" }, gabarito: "B", explicacao: "O cloro elimina microrganismos causadores de doenças." },
-    { id: 35, disciplina: "Legislação", enunciado: "Estágio probatório dura quantos anos?", alternativas: { A: "1 ano", B: "2 anos", C: "3 anos", D: "5 anos" }, gabarito: "C", explicacao: "Segundo a Constituição, a estabilidade ocorre após 3 anos." },
-    { id: 36, disciplina: "SAAE", enunciado: "ETE significa:", alternativas: { A: "Estação de Tratamento de Esgoto", B: "Empresa de Transporte", C: "Estação de Tudo", D: "Energia Total" }, gabarito: "A", explicacao: "ETE é onde o esgoto é tratado antes de voltar ao rio." },
-    { id: 37, disciplina: "Legislação", enunciado: "O servidor estável só perde o cargo por:", alternativas: { A: "Vontade do chefe", B: "Sentença judicial", C: "Fim do mandato", D: "Férias" }, gabarito: "B", explicacao: "A estabilidade protege o servidor contra demissões arbitrárias." },
-    { id: 38, disciplina: "SAAE", enunciado: "O Flúor na água ajuda a prevenir:", alternativas: { A: "Dengue", B: "Cáries", C: "Gripe", D: "Calvície" }, gabarito: "B", explicacao: "A fluoretação é uma medida de saúde pública para evitar cáries." },
-    { id: 39, disciplina: "Legislação", enunciado: "O Prefeito de Passos pode extinguir o SAAE sem lei?", alternativas: { A: "Sim", B: "Não", C: "Só em janeiro", D: "Só se faltar água" }, gabarito: "B", explicacao: "Autarquias só podem ser criadas ou extintas por LEI." },
-    { id: 40, disciplina: "SAAE", enunciado: "A tubulação que leva água da rua para a casa é:", alternativas: { A: "Adutora", B: "Ramal", C: "Esgoto", D: "Cisterna" }, gabarito: "B", explicacao: "O ramal predial liga a rede pública ao hidrômetro." },
-    { id: 41, disciplina: "SAAE", enunciado: "Hidrômetro serve para:", alternativas: { A: "Medir pressão", B: "Medir consumo", C: "Esquentar água", D: "Filtrar água" }, gabarito: "B", explicacao: "O hidrômetro registra o volume de água utilizado." },
-    { id: 42, disciplina: "SAAE", enunciado: "A cor padrão do SAAE Passos é:", alternativas: { A: "Vermelho", B: "Azul/Branco", C: "Amarelo", D: "Verde" }, gabarito: "B", explicacao: "Identidade visual padrão de saneamento em Passos." },
-    { id: 43, disciplina: "Legislação", enunciado: "São poderes da União:", alternativas: { A: "Legislativo e Judiciário apenas", B: "Legislativo, Executivo e Judiciário", C: "Prefeito e Vereadores", D: "Polícia e Exército" }, gabarito: "B", explicacao: "Tripartição dos poderes conforme a Constituição." },
-    { id: 44, disciplina: "SAAE", enunciado: "Onde fica a captação principal de Passos?", alternativas: { A: "Rio Grande", B: "Ribeirão Bocaina", C: "Rio Sapucaí", D: "Poço artesiano" }, gabarito: "B", explicacao: "O Ribeirão Bocaina é a principal fonte de abastecimento da cidade." },
-    { id: 45, disciplina: "SAAE", enunciado: "A água captada no rio é chamada de:", alternativas: { A: "Água potável", B: "Água bruta", C: "Água destilada", D: "Água mineral" }, gabarito: "B", explicacao: "Água bruta é a água antes de passar pelo tratamento." },
-    { id: 46, disciplina: "Legislação", enunciado: "Vacância do cargo ocorre por:", alternativas: { A: "Promoção", B: "Exoneração", C: "Aposentadoria", D: "Todas acima" }, gabarito: "D", explicacao: "Vacância é quando o cargo fica 'vago' por qualquer desses motivos." },
-    { id: 47, disciplina: "SAAE", enunciado: "A decantação serve para:", alternativas: { A: "Sujeira afundar", B: "Água ferver", C: "Adicionar açúcar", D: "Lavar o filtro" }, gabarito: "A", explicacao: "Pela gravidade, os flocos de sujeira descem ao fundo do tanque." },
-    { id: 48, disciplina: "Informática", enunciado: "Qual destes é um hardware?", alternativas: { A: "Windows", B: "Mouse", C: "Excel", D: "Vírus" }, gabarito: "B", explicacao: "Hardware é a parte física que você pode tocar." },
-    { id: 49, disciplina: "Português", enunciado: "Significado de 'Beneplácito':", alternativas: { A: "Ódio", B: "Consentimento", C: "Rapidez", D: "Confusão" }, gabarito: "B", explicacao: "Dar o beneplácito é dar a aprovação ou consentimento." },
-    { id: 50, disciplina: "SAAE", enunciado: "Saneamento básico é direito de:", alternativas: { A: "Apenas ricos", B: "Todos os cidadãos", C: "Quem paga IPTU", D: "Empresas apenas" }, gabarito: "B", explicacao: "É um serviço essencial e um direito fundamental de todos." }
+    // --- INFORMÁTICA & MATEMÁTICA ---
+    { id: 16, disciplina: "Informática", enunciado: "Atalho para fechar programa no Windows:", alternativas: { A: "Alt + F4", B: "Ctrl + Z", C: "Win + L", D: "Ctrl + P" }, gabarito: "A", explicacao: "Alt+F4 fecha a janela ativa." },
+    { id: 17, disciplina: "Matemática", enunciado: "30% de 200 é:", alternativas: { A: "30", B: "50", C: "60", D: "100" }, gabarito: "C", explicacao: "0,3 * 200 = 60." },
+    { id: 18, disciplina: "Informática", enunciado: "Protocolo para envio de e-mails:", alternativas: { A: "HTTP", B: "SMTP", C: "FTP", D: "POP3" }, gabarito: "B", explicacao: "SMTP envia; POP3 e IMAP recebem." },
+    { id: 19, disciplina: "Matemática", enunciado: "Média de 10, 20 e 30:", alternativas: { A: "10", B: "20", C: "30", D: "60" }, gabarito: "B", explicacao: "(10+20+30)/3 = 20." },
+    { id: 20, disciplina: "SAAE", enunciado: "Em Passos, a autarquia responsável pelo saneamento é:", alternativas: { A: "COPASA", B: "SAAE", C: "CEMIG", D: "Prefeitura" }, gabarito: "B", explicacao: "O SAAE é a autarquia local de Passos." }
+    // Adicione mais questões seguindo este padrão até 50.
 ];
 
 let indiceAtual = 0;
@@ -81,19 +51,20 @@ app.post('/responder', (req, res) => {
     if (correta) {
         indiceAtual++;
         res.json({ 
-            correta, 
+            correta: true, 
             mensagem: "Sensacional! Você acertou.",
-            explicacao: questao.explicacao, // Só envia se acertar
+            explicacao: questao.explicacao, 
             proxima: true
         });
     } else {
         res.json({ 
-            correta, 
-            mensagem: "Resposta incorreta. Tente novamente!",
-            explicacao: null, // Esconde a explicação no erro
+            correta: false, 
+            mensagem: "Resposta incorreta. Analise as opções e tente novamente!",
+            explicacao: null, 
             proxima: false
         });
     }
 });
 
-app.listen(3000, () => console.log("🔥 Servidor rodando!"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`🚀 Simulado rodando na porta ${PORT}`));
