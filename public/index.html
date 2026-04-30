@@ -30,7 +30,7 @@
     <header>
         <i class="fa-solid fa-droplet" style="font-size: 2.5rem; color: var(--accent);"></i>
         <h1>SAAE PASSOS</h1>
-        <p>Simulado Preparatório / Lele Piantino</p>
+        <p>Simulado Preparatório - V2</p>
     </header>
     <div class="container">
         <div class="content">
@@ -42,6 +42,7 @@
                 <strong id="fStatus"></strong>
                 <div id="explicacao" style="margin-top: 10px; font-size: 0.9rem;"></div>
                 <button class="btn btn-next" id="btnNext" onclick="proxima()">Próxima Questão</button>
+                <button class="btn btn-confirm" id="btnRetry" style="display:none; background: #666;" onclick="tentarNovamente()">Tentar Novamente</button>
             </div>
         </div>
     </div>
@@ -60,12 +61,15 @@
             document.getElementById('feedback').style.display = 'none';
             document.getElementById('btnAction').style.display = 'block';
             document.getElementById('btnNext').style.display = 'none';
+            document.getElementById('btnRetry').style.display = 'none';
         }
+
         function selecionar(el) {
             document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
             el.classList.add('selected');
             el.querySelector('input').checked = true;
         }
+
         async function verificar() {
             const sel = document.querySelector('input[name="resp"]:checked');
             if (!sel) return;
@@ -79,13 +83,32 @@
             f.style.display = 'block';
             f.className = dados.correta ? 'feedback correct' : 'feedback wrong';
             document.getElementById('fStatus').innerText = dados.mensagem;
-            document.getElementById('explicacao').innerHTML = dados.correta ? `<strong>Dica:</strong> ${dados.explicacao}` : "";
+            
+            // Removemos a "Dica do Professor" e mostramos apenas a explicação real no acerto
+            document.getElementById('explicacao').innerHTML = dados.correta ? dados.explicacao : "";
+
             if (dados.correta) {
                 document.getElementById('btnAction').style.display = 'none';
                 document.getElementById('btnNext').style.display = 'block';
+                document.getElementById('btnRetry').style.display = 'none';
+            } else {
+                document.getElementById('btnAction').style.display = 'none';
+                document.getElementById('btnNext').style.display = 'none';
+                document.getElementById('btnRetry').style.display = 'block';
             }
         }
+
+        function tentarNovamente() {
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('btnAction').style.display = 'block';
+            document.getElementById('btnRetry').style.display = 'none';
+            // Desmarca a opção anterior para obrigar nova escolha
+            document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            document.querySelectorAll('input[name="resp"]').forEach(i => i.checked = false);
+        }
+
         function proxima() { carregar(); }
+        
         function finalizar() {
             document.querySelector('.content').innerHTML = "<div style='text-align:center'><h2>Parabéns!</h2><p>Você concluiu o simulado V2.</p><button class='btn btn-confirm' onclick='location.reload()'>Reiniciar</button></div>";
         }
