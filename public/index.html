@@ -3,115 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulado SAAE Passos |</title>
+    <title>Simulado SAAE Passos | V3</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Elementos decorativos laterais */
-.decoration {
-    position: fixed;
-    font-size: 5rem;
-    color: rgba(0, 74, 173, 0.05); /* Azul bem clarinho e transparente */
-    z-index: -1; /* Fica atrás de tudo */
-    pointer-events: none; /* Não atrapalha o clique */
-}
-
-.dec-1 { top: 10%; left: 5%; transform: rotate(-15deg); }
-.dec-2 { bottom: 15%; left: 8%; transform: rotate(10deg); }
-.dec-3 { top: 20%; right: 5%; transform: rotate(20deg); }
-.dec-4 { bottom: 10%; right: 8%; transform: rotate(-10deg); }
-
-/* Ajuste para sumir em telas de celular muito pequenas se necessário */
-@media (max-width: 900px) {
-    .decoration { display: none; }
-}
         :root { --primary: #004aad; --accent: #ffcc00; --success: #27ae60; --danger: #e74c3c; --bg: #f4f7fa; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; display: flex; flex-direction: column; align-items: center; }
         
-        header { width: 100%; background: var(--primary); color: white; padding: 50px 0 80px; text-align: center; }
-        header h1 { font-family: 'Poppins'; margin: 10px 0; font-size: 2.2rem; }
-        
-        .container { width: 90%; max-width: 700px; margin-top: -50px; background: white; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; }
-        .content { padding: 35px; }
-        
-        .badge { background: #eef2f7; color: var(--primary); padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 0.85rem; }
-        h2 { font-family: 'Poppins'; color: #333; margin: 25px 0; line-height: 1.5; font-size: 1.3rem; }
-        
-        .option { border: 2px solid #eee; padding: 15px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; transition: 0.2s; font-weight: 500; }
-        .option:hover { border-color: var(--primary); background: #f9fbff; }
-        .option.selected { border-color: var(--primary); background: #f0f7ff; }
-
-        /* Estilo exato dos botões da Versão 1 */
-        .btn { 
-            width: 100%; 
-            padding: 16px; 
-            border: none; 
-            border-radius: 12px; 
-            font-family: 'Poppins'; 
-            font-weight: 700; 
-            font-size: 1.1rem; 
-            cursor: pointer; 
-            margin-top: 20px; 
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
             display: flex; 
+            flex-direction: column; 
             align-items: center; 
-            justify-content: center; 
-            gap: 10px; 
-            transition: transform 0.2s, background 0.2s; 
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        .btn:active { transform: scale(0.98); }
         
+        /* Elementos decorativos laterais (Mais chamativos e parados) */
+        .decoration {
+            position: fixed;
+            font-size: 12rem; /* Figuras maiores */
+            color: rgba(0, 74, 173, 0.12); /* Opacidade aumentada para aparecer mais */
+            z-index: -1;
+            pointer-events: none;
+        }
+        /* Posições fixas nas laterais */
+        .dec-1 { top: 5%; left: 2%; transform: rotate(-10deg); }
+        .dec-2 { bottom: 5%; left: 2%; transform: rotate(10deg); }
+        .dec-3 { top: 5%; right: 2%; transform: rotate(15deg); }
+        .dec-4 { bottom: 5%; right: 2%; transform: rotate(-15deg); }
+
+        header { width: 100%; background: var(--primary); color: white; padding: 50px 0 80px; text-align: center; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        header h1 { font-family: 'Poppins'; margin: 10px 0; font-size: 2.5rem; }
+        
+        .container { width: 90%; max-width: 700px; margin-top: -50px; background: white; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 50px; border: 1px solid rgba(0,0,0,0.05); }
+        .content { padding: 40px; }
+        
+        .badge { background: #eef2f7; color: var(--primary); padding: 8px 18px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
+        h2 { font-family: 'Poppins'; color: #333; margin: 25px 0; line-height: 1.4; font-size: 1.4rem; }
+        
+        .option { border: 2px solid #eee; padding: 18px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; gap: 14px; margin-bottom: 14px; transition: 0.2s; font-weight: 500; font-size: 1.05rem; }
+        .option:hover { border-color: var(--primary); background: #f9fbff; }
+        .option.selected { border-color: var(--primary); background: #f0f7ff; box-shadow: 0 4px 10px rgba(0,74,173,0.1); }
+
+        .btn { 
+            width: 100%; padding: 18px; border: none; border-radius: 14px; font-family: 'Poppins'; 
+            font-weight: 700; font-size: 1.1rem; cursor: pointer; margin-top: 25px; 
+            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s; 
+        }
         .btn-confirm { background: var(--primary); color: white; }
-        .btn-confirm:hover { background: #003a8c; }
+        .btn-confirm:hover { background: #003a8c; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,74,173,0.3); }
         
         .btn-next { background: var(--success); color: white; display: none; }
-        .btn-next:hover { background: #219150; }
-        
-        .btn-retry { background: #666; color: white; display: none; }
-        .btn-retry:hover { background: #444; }
+        .btn-retry { background: #5a6268; color: white; display: none; }
 
-        .feedback { display: none; padding: 25px; border-radius: 15px; margin-top: 25px; animation: fadeIn 0.3s; }
-        .feedback.correct { background: #d4edda; color: #155724; border-left: 6px solid var(--success); }
-        .feedback.wrong { background: #f8d7da; color: #721c24; border-left: 6px solid var(--danger); }
-        .explanation-text { margin-top: 10px; font-size: 0.95rem; line-height: 1.4; }
+        .feedback { display: none; padding: 30px; border-radius: 18px; margin-top: 30px; animation: fadeIn 0.4s ease-out; }
+        .feedback.correct { background: #d4edda; color: #155724; border-left: 8px solid var(--success); }
+        .feedback.wrong { background: #f8d7da; color: #721c24; border-left: 8px solid var(--danger); }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Em tablets e celulares, as figuras laterais sumirão para não poluir o conteúdo */
+        @media (max-width: 1100px) { .decoration { display: none; } }
     </style>
 </head>
 <body>
-    <i class="fa-solid fa-droplet decoration dec-1"></i>
-<i class="fa-solid fa-pen-nib decoration dec-2"></i>
-<i class="fa-solid fa-microchip decoration dec-3"></i>
-<i class="fa-solid fa-file-signature decoration dec-4"></i>
+
+    <!-- Ícones Decorativos Maiores e Mais Visíveis -->
+    <i class="fa-solid fa-faucet-drip decoration dec-1"></i>
+    <i class="fa-solid fa-briefcase decoration dec-2"></i>
+    <i class="fa-solid fa-calculator decoration dec-3"></i>
+    <i class="fa-solid fa-gavel decoration dec-4"></i>
+
     <header>
-        <i class="fa-solid fa-droplet" style="font-size: 2.5rem; color: var(--accent);"></i>
+        <i class="fa-solid fa-droplet" style="font-size: 3rem; color: var(--accent);"></i>
         <h1>SAAE PASSOS</h1>
-        <p>Agente Administrativo | Simulado | Lele Piantino</p>
+        <p>Simulado Preparatório | Agente Administrativo | Lele Piantino</p>
     </header>
 
     <div class="container">
         <div class="content" id="quizBody">
             <span class="badge" id="tag">CARREGANDO...</span>
-            <h2 id="enunciado">Carregando sua próxima questão...</h2>
+            <h2 id="enunciado">Buscando questão no edital...</h2>
             
             <div id="options"></div>
 
             <button class="btn btn-confirm" id="btnAction" onclick="verificar()">
-                <i class="fa-solid fa-circle-check"></i> Confirmar Resposta
+                <i class="fa-solid fa-check-double"></i> Confirmar Resposta
             </button>
 
             <div id="feedback" class="feedback">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <i id="fIcon" class="fa-solid" style="font-size: 1.4rem;"></i>
-                    <strong id="fStatus"></strong>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <i id="fIcon" class="fa-solid" style="font-size: 2rem;"></i>
+                    <strong id="fStatus" style="font-size: 1.2rem;"></strong>
                 </div>
-                <div id="explicacao" class="explanation-text"></div>
+                <div id="explicacao" style="margin-top: 15px; font-size: 1rem; line-height: 1.5;"></div>
                 
                 <button class="btn btn-next" id="btnNext" onclick="proxima()">
-                    Próxima Questão <i class="fa-solid fa-arrow-right"></i>
+                    Próxima Questão <i class="fa-solid fa-arrow-right-icon"></i>
                 </button>
                 
                 <button class="btn btn-retry" id="btnRetry" onclick="tentarNovamente()">
-                    <i class="fa-solid fa-rotate-left"></i> Tentar Novamente
+                    <i class="fa-solid fa-rotate-right"></i> Tentar Novamente
                 </button>
             </div>
         </div>
@@ -163,7 +157,7 @@
             f.className = dados.correta ? 'feedback correct' : 'feedback wrong';
             
             document.getElementById('fStatus').innerText = dados.mensagem;
-            document.getElementById('fIcon').className = dados.correta ? 'fa-solid fa-check-circle' : 'fa-solid fa-times-circle';
+            document.getElementById('fIcon').className = dados.correta ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-xmark';
             document.getElementById('explicacao').innerHTML = dados.correta ? dados.explicacao : "";
             
             document.getElementById('btnAction').style.display = 'none';
@@ -172,6 +166,7 @@
                 document.getElementById('btnNext').style.display = 'flex';
                 document.getElementById('btnRetry').style.display = 'none';
             } else {
+                document.getElementById('btnAction').style.display = 'none';
                 document.getElementById('btnNext').style.display = 'none';
                 document.getElementById('btnRetry').style.display = 'flex';
             }
@@ -189,10 +184,10 @@
         
         function finalizar() {
             document.getElementById('quizBody').innerHTML = `
-                <div style="text-align:center; padding: 20px 0;">
-                    <i class="fa-solid fa-trophy" style="font-size: 4rem; color: #ffcc00;"></i>
-                    <h2>Excelente Trabalho!</h2>
-                    <p>Você concluiu o Simulado V2 com as questões da IBGP.</p>
+                <div style="text-align:center; padding: 30px 0;">
+                    <i class="fa-solid fa-medal" style="font-size: 5rem; color: #ffcc00;"></i>
+                    <h2 style="margin-top: 20px;">Simulado Concluído!</h2>
+                    <p style="font-size: 1.1rem;">Você está cada vez mais perto da sua vaga no SAAE.</p>
                     <button class="btn btn-confirm" onclick="location.reload()">Reiniciar Simulado</button>
                 </div>`;
         }
