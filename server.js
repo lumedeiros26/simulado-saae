@@ -10,16 +10,18 @@ app.use(express.static('public'));
 
 app.get('/gerar-simulado', async (req, res) => {
     try {
+        console.log("Tentando conectar ao MongoDB...");
         await client.connect();
-        const database = client.db('simulado-saae'); 
+        const database = client.db('simulado-saae');
         const collection = database.collection('questoes');
         
-        // Sorteia 50 questões aleatórias sem repetir
         const simulado = await collection.aggregate([{ $sample: { size: 50 } }]).toArray();
+        console.log("Questões encontradas:", simulado.length);
         
         res.json(simulado);
     } catch (err) {
-        res.status(500).json({ erro: "Erro no Banco de Dados" });
+        console.error("ERRO DE CONEXÃO:", err.message);
+        res.status(500).json({ erro: err.message });
     }
 });
 
