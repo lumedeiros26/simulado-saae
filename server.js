@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb');
 const express = require('express');
 const app = express();
 
-const uri = "mongodb+srv://lumedeiros:<db_passos50>@cluster0.puegaij.mongodb.net/?appName=Cluster0"; // <-- COLE SEU LINK AQUI
+const uri = "mongodb+srv://luizademedeiros:passos50@cluster0.abcde.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
 
 app.use(express.json());
