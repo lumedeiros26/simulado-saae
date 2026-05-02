@@ -6,14 +6,24 @@ const path = require('path');
 // 1. USE O LINK REAL QUE VOCÊ PEGOU NO BOTAO CONNECT
 const uri = "mongodb+srv://lumedeiros:tkgivHDaxtRmCqRy@cluster0.puegaij.mongodb.net/?appName=Cluster0";
 const client = new MongoClient(uri);
+const uri = "mongodb+srv://lumedeiros:tkgivHDaxtRmCqRy@cluster0.puegaij.mongodb.net/?appName=Cluster0";
+const client = new MongoClient(uri);
 
+async function conectarMongo() {
+    await client.connect();
+    console.log("Mongo conectado");
+}
+
+conectarMongo();
+
+app.use(express.json());
 app.use(express.json());
 app.use(express.static('public'));
 
 // 2. ROTA DE TESTE (Para saber se o banco está respondendo)
 app.get('/status-banco', async (req, res) => {
     try {
-        await client.connect();
+        
         await client.db("admin").command({ ping: 1 });
         res.send("O Banco de Dados está CONECTADO! ✅");
     } catch (err) {
@@ -24,7 +34,7 @@ app.get('/status-banco', async (req, res) => {
 // 3. ROTA DO SIMULADO
 app.get('/gerar-simulado', async (req, res) => {
     try {
-        await client.connect();
+        
         // CERTIFIQUE-SE QUE O NOME ABAIXO É EXATAMENTE O DO ATLAS
         const database = client.db('simulado-saae'); 
         const collection = database.collection('questoes');
