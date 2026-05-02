@@ -2,29 +2,26 @@ const { MongoClient } = require('mongodb');
 const express = require('express');
 const app = express();
 
-// Link do seu MongoDB Atlas (você cria um gratuito lá)
-const uri = "SUA_URL_DO_MONGODB_AQUI"; 
+const uri = "mongodb+srv://lumedeiros:<db_passos50>@cluster0.puegaij.mongodb.net/?appName=Cluster0"; // <-- COLE SEU LINK AQUI
 const client = new MongoClient(uri);
 
 app.use(express.json());
 app.use(express.static('public'));
 
-async function getQuestoesAleatorias() {
-    const database = client.db('simulado_saae');
-    const questoes = database.collection('questoes');
-    
-    // O comando 'sample' do MongoDB sorteia 50 questões aleatórias
-    return await questoes.aggregate([{ $sample: { size: 50 } }]).toArray();
-}
-
 app.get('/gerar-simulado', async (req, res) => {
     try {
-        const simulado = await getQuestoesAleatorias();
+        await client.connect();
+        const database = client.db('simulado-saae'); 
+        const collection = database.collection('questoes');
+        
+        // Sorteia 50 questões aleatórias sem repetir
+        const simulado = await collection.aggregate([{ $sample: { size: 50 } }]).toArray();
+        
         res.json(simulado);
     } catch (err) {
-        res.status(500).send("Erro ao acessar o banco de dados");
+        res.status(500).json({ erro: "Erro no Banco de Dados" });
     }
 });
 
-// Porta do servidor
-app.listen(3000, () => console.log("Servidor Profissional SAAE Iniciado"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
