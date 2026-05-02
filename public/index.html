@@ -1,21 +1,29 @@
-<!-- No seu CSS do index.html -->
-<style>
-    .decoration {
-        position: fixed;
-        font-size: 10rem;
-        z-index: -1;
-        opacity: 0.6; /* Figuras bem visíveis */
-        filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.1));
-    }
-    /* Cores vivas para cada ícone */
-    .dec-agua { top: 10%; left: 2%; color: #00b4d8; }
-    .dec-lei { bottom: 10%; left: 3%; color: #d00000; }
-    .dec-logica { top: 15%; right: 2%; color: #ffb703; }
-    .dec-adm { bottom: 15%; right: 3%; color: #38b000; }
-</style>
-
-<!-- No corpo do HTML -->
-<i class="fa-solid fa-faucet-drip decoration dec-agua"></i>
-<i class="fa-solid fa-gavel decoration dec-lei"></i>
-<i class="fa-solid fa-brain decoration dec-logica"></i>
-<i class="fa-solid fa-folder-tree decoration dec-adm"></i>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>SAAE Passos | Simulado Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; margin: 0; display: flex; flex-direction: column; align-items: center; }
+        .decoration { position: fixed; font-size: 8rem; z-index: -1; opacity: 0.5; }
+        .dec-1 { top: 10%; left: 2%; color: #3498db; } /* Azul Água */
+        .dec-2 { bottom: 10%; right: 2%; color: #e74c3c; } /* Vermelho Lei */
+        header { background: #004aad; color: white; width: 100%; text-align: center; padding: 40px 0; }
+        .container { background: white; width: 90%; max-width: 800px; margin-top: -30px; border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .badge { background: #004aad; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold; margin-bottom: 20px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <i class="fa-solid fa-faucet-drip decoration dec-1"></i>
+    <i class="fa-solid fa-gavel decoration dec-2"></i>
+    <header><h1>SIMULADO SAAE</h1></header>
+    <div class="container">
+        <div id="quiz">
+            <span class="badge" id="materia">PORTUGUÊS</span>
+            <h2 id="pergunta">Carregando questões do banco de dados...</h2>
+            <div id="opcoes"></div>
+        </div>
+    </div>
+</body>
+</html>
