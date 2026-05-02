@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 
 // 1. USE O LINK REAL QUE VOCÊ PEGOU NO BOTAO CONNECT
-const uri = "mongodb+srv://lumedeiros:db_passos50@cluster0.puegaij.mongodb.net/?appName=Cluster0";
+const uri = "mongodb+srv://lumedeiros:passos50@cluster0.puegaij.mongodb.net/?appName=Cluster0";
 const client = new MongoClient(uri);
 
 app.use(express.json());
