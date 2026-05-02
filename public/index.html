@@ -25,5 +25,53 @@
             <div id="opcoes"></div>
         </div>
     </div>
+    <script>
+async function carregarQuestoes() {
+    try {
+        const resposta = await fetch('/gerar-simulado');
+
+        if (!resposta.ok) {
+            throw new Error('Erro ao buscar questões');
+        }
+
+        const questoes = await resposta.json();
+
+        console.log(questoes);
+
+        const pergunta = document.getElementById('pergunta');
+        const opcoes = document.getElementById('opcoes');
+        const materia = document.getElementById('materia');
+
+        // pega primeira questão
+        const q = questoes[0];
+
+        materia.innerText = q.disciplina || "DISCIPLINA";
+        pergunta.innerText = q.enunciado || "Pergunta não encontrada";
+
+        opcoes.innerHTML = '';
+
+        for (const letra in q.alternativas) {
+            const btn = document.createElement('button');
+
+            btn.innerText = `${letra}) ${q.alternativas[letra]}`;
+
+            btn.style.display = 'block';
+            btn.style.margin = '10px 0';
+            btn.style.padding = '10px';
+            btn.style.width = '100%';
+
+            opcoes.appendChild(btn);
+        }
+
+    } catch (erro) {
+        console.error(erro);
+
+        document.getElementById('pergunta').innerText =
+            'Erro ao carregar questões.';
+    }
+}
+
+carregarQuestoes();
+</script>
 </body>
 </html>
